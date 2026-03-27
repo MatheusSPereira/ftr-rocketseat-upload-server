@@ -5,6 +5,6 @@ const server = fastify()
 
 server.register(fastifyCors, { origin: '*' })
 
-server.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
+server.listen({ port: 3334, host: '0.0.0.0' }).then(() => {
   console.log('HTTP server running!')
 })
