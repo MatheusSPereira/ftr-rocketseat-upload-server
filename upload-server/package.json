@@ -9,16 +9,19 @@
   "scripts": {
     "dev": "tsx watch --env-file .env src/infra/http/server.ts"
   },
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "@fastify/multipart": "^9.4.0",
+    "@fastify/swagger": "^9.7.0",
+    "@fastify/swagger-ui": "^5.2.5",
+    "fastify": "^5.8.4",
+    "fastify-type-provider-zod": "^6.1.0",
+    "zod": "^4.3.6"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.4.9",
     "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
-  },
-  "dependencies": {
-    "@fastify/cors": "^11.2.0",
-    "fastify": "^5.8.4",
-    "fastify-type-provider-zod": "^6.1.0",
-    "zod": "^4.3.6"
   }
 }
