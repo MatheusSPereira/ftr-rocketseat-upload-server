@@ -1,5 +1,5 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import z from 'zod'
+import { z } from 'zod'
 import { uploadImage } from '@/app/functions/upload-images'
 import { isRight, unwrapEither } from '@/shared/either'
 
@@ -12,7 +12,7 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
         consumes: ['multipart/form-data'],
         response: {
           201: z.null().describe('Image uploaded'),
-          400: z.object({ message: z.string() }).describe('File is required.'),
+          400: z.object({ message: z.string() }),
         },
       },
     },
@@ -34,6 +34,8 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
       })
 
       if (isRight(result)) {
+        console.log(unwrapEither(result))
+
         return reply.status(201).send()
       }
 
