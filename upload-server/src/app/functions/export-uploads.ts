@@ -1,7 +1,7 @@
 import { PassThrough, Transform } from 'node:stream'
 import { pipeline } from 'node:stream/promises'
 import { stringify } from 'csv-stringify'
-import { asc, count, desc, ilike } from 'drizzle-orm'
+import { desc, ilike } from 'drizzle-orm'
 import { z } from 'zod'
 import { db, pg } from '@/infra/db'
 import { schema } from '@/infra/db/schemas'
@@ -37,10 +37,6 @@ export async function exportUploads(
     .toSQL()
 
   const cursor = pg.unsafe(sql, params as string[]).cursor(2)
-
-  //   for await (const rows of cursor) {
-  //     console.log(rows)
-  //   }
 
   const csv = stringify({
     delimiter: ',',
@@ -91,7 +87,5 @@ export async function exportUploads(
 
   const [{ url }] = await Promise.all([uploadToStorage, convertToCSVPipeline])
 
-  console.log(url.toJSON().toString())
-
-  return makeRight({ reportUrl: url.toJSON().toString() })
+  return makeRight({ reportUrl: url })
 }
