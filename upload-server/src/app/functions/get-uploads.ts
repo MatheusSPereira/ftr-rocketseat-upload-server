@@ -6,7 +6,7 @@ import { type Either, makeRight } from '@/shared/either'
 
 const getUploadsInput = z.object({
   searchQuery: z.string().optional(),
-  sortyBy: z.enum(['createdAt']).optional(),
+  sortBy: z.enum(['createdAt']).optional(),
   sortDirection: z.enum(['asc', 'desc']).optional(),
   page: z.number().optional().default(1),
   pageSize: z.number().optional().default(20),
@@ -28,7 +28,7 @@ type GetUploadsOutput = {
 export async function getUploads(
   input: GetUploadsInput
 ): Promise<Either<never, GetUploadsOutput>> {
-  const { page, pageSize, searchQuery, sortDirection, sortyBy } =
+  const { page, pageSize, searchQuery, sortDirection, sortBy } =
     getUploadsInput.parse(input)
 
   const [uploads, [{ total }]] = await Promise.all([
@@ -45,12 +45,12 @@ export async function getUploads(
         searchQuery ? ilike(schema.uploads.name, `%${searchQuery}%`) : undefined
       )
       .orderBy(fields => {
-        if (sortyBy && sortDirection === 'asc') {
-          return asc(fields[sortyBy])
+        if (sortBy && sortDirection === 'asc') {
+          return asc(fields[sortBy])
         }
 
-        if (sortyBy && sortDirection === 'desc') {
-          return asc(fields[sortyBy])
+        if (sortBy && sortDirection === 'desc') {
+          return desc(fields[sortBy])
         }
 
         return desc(fields.id)
