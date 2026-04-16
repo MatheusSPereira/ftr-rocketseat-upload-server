@@ -18,7 +18,8 @@ COPY --from=deps /usr/src/app/node_modules ./node_modules
 RUN npm run build
 RUN npm prune --production
 
-FROM node:20-alpine3.21 AS deploy
+# Distroless
+FROM gcr.io/distroless/nodejs20-debian13 AS deploy
 
 USER 1000
 
@@ -43,4 +44,4 @@ ENV CLOUDFLARE_PUBLIC_URL="https://localhost"
 
 EXPOSE 3334
 
-CMD ["npm", "run", "start"]
+CMD ["dist/infra/http/server.js"]
