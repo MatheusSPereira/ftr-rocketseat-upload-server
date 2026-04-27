@@ -33,5 +33,5 @@ jobs:
           ECR_REPOSITORY: ${{ vars.ECS_REPOSITORY }}
         run: |
           docker build -t widget-server:v3 .
-          docker tag widget-server:v3 @ECR_REGISTRY/$ECS_REPOSITORY:v3
-          docker push @ECR_REGISTRY/$ECS_REPOSITORY:v3
+          docker tag widget-server:v3 $ECR_REGISTRY/$ECS_REPOSITORY:v3
+          docker push $ECR_REGISTRY/$ECS_REPOSITORY:v3
