@@ -21,6 +21,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        id: install-dependencies
+        run: |
+          npm intall
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
